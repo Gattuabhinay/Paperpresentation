@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
+import { createClient } from '@supabase/supabase-js';
 import { 
   Calendar, 
   Clock, 
@@ -25,6 +26,13 @@ import {
   Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+
+// --- Supabase Setup ---
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL || 'https://dklzqwcgboolzisqngei.supabase.co',
+  import.meta.env.VITE_SUPABASE_ANON_KEY || 'YOUR_ANON_KEY_HERE'
+);
 
 // --- Components ---
 
@@ -170,6 +178,7 @@ const PrizeCard = ({ icon, place, title, rewards, bgColor, borderColor, accentCo
 // --- Main App ---
 
 export default function App() {
+  const [registrationCount, setRegistrationCount] = useState(0);
   const [formData, setFormData] = useState({
     college: "NNRG - Nalla Narasimha Reddy Education Society's Group of Institutions",
     otherCollege: "",
@@ -187,6 +196,23 @@ export default function App() {
 
   const [errors, setErrors] = useState<string[]>([]);
   const formRef = useRef<HTMLDivElement>(null);
+
+  const fetchCount = async () => {
+    try {
+      const { count } = await supabase
+        .from('paperpresentations')
+        .select('*', { count: 'exact', head: true });
+      setRegistrationCount(count ?? 0);
+    } catch (err) {
+      console.error('Error fetching count:', err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCount();
+    const interval = setInterval(fetchCount, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const colleges = [
     "NNRG - Nalla Narasimha Reddy Education Society's Group of Institutions",
@@ -219,10 +245,35 @@ export default function App() {
     return newErrors.length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
       const collegeName = formData.college === "Other" ? formData.otherCollege : formData.college;
+      
+      // Save to Supabase
+      const { error } = await supabase
+        .from('paperpresentations')
+        .insert([{
+          college: collegeName,
+          name: formData.leaderName,
+          roll_number: formData.leaderRoll,
+          department: formData.leaderDept,
+          year: formData.leaderYear,
+          mobile_no: formData.leaderMobile,
+          e_mail: formData.leaderEmail || null,
+          transaction_id: formData.transactionId,
+          team_name: formData.teamName,
+          member2_name: formData.member2Name || null,
+          member2_roll: formData.member2Roll || null
+        }]);
+
+      if (error) {
+        console.error('Supabase error:', error);
+      } else {
+        console.log('Saved successfully!');
+        fetchCount();
+      }
+
       const message = `Hello! I have registered for *PAPER PRESENTATION* event at NNRG Tech Fest 2027.
 
 *Team Details:*
@@ -305,6 +356,15 @@ Thank you! 🙏
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center">
             <div className="font-mono text-[11px] text-white/35 mb-6">
               visitor@nnrg:~$ ./launch paper_presentation --year=2027
+            </div>
+
+            {/* Live Registration Counter */}
+            <div className="inline-flex items-center gap-3 bg-[#10B981]/12 border border-[#10B981]/40 rounded-full px-6 py-2.5 backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.2)] mb-5">
+              <div className="w-2.5 h-2.5 bg-[#10B981] rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
+              <div className="text-white text-[13px] font-bold tracking-[3px] uppercase">
+                LIVE  •  <span className="text-[#10B981] text-[18px] font-black">{registrationCount}</span> REGISTERED
+              </div>
+              <span className="text-[#10B981]/70 text-base">👥</span>
             </div>
 
             <div className="inline-block bg-[#0D9488] text-white text-[11px] font-bold px-4 py-1.5 rounded-full tracking-widest mb-8">
