@@ -412,9 +412,13 @@ Thank you! 🙏
               <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </a>
 
-            <div className="text-center">
-              <div className="text-[#9CA3AF] text-sm uppercase tracking-[3px] mb-2">Organizing by</div>
-              <div className="text-white font-black text-2xl md:text-3xl tracking-tight">AI & ML Department</div>
+            <div className="mt-20 w-full max-w-3xl mx-auto">
+              <div className="flex items-center justify-center gap-6 mb-6 opacity-30">
+                <div className="h-[1px] bg-white/50 flex-1" />
+                <div className="text-[#9CA3AF] text-[10px] font-bold uppercase tracking-[6px] whitespace-nowrap">Organizing by</div>
+                <div className="h-[1px] bg-white/50 flex-1" />
+              </div>
+              <div className="text-white font-black text-3xl md:text-6xl tracking-tighter uppercase">AI & ML Department</div>
             </div>
           </div>
         </div>
@@ -815,6 +819,66 @@ Thank you! 🙏
 
             <div className="bg-[#0D9488]/6 border-l-2 border-[#0D9488] p-3">
               <p className="text-[#0D9488] text-[13px]">📋 Note: NNRG TechFest - Paper Presentation</p>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="flex items-center justify-center gap-4 max-w-[700px] mx-auto my-12">
+            <div className="flex-1 h-[1px] bg-white/8" />
+            <div className="bg-[#1A1A2E] border border-[#0D9488]/30 text-[#0D9488]/80 text-[9px] tracking-[3px] px-[14px] py-[5px] rounded-[20px] uppercase">
+              OR | ALTERNATIVE
+            </div>
+            <div className="flex-1 h-[1px] bg-white/8" />
+          </div>
+
+          {/* Alternative Payment Card */}
+          <div className="max-w-[700px] mx-auto bg-[#0D1B2A] rounded-2xl p-8 border border-white/5 shadow-xl relative">
+            <div className="absolute top-6 right-6 border border-[#0D9488]/50 text-[#0D9488] text-[9px] font-bold tracking-[2px] px-2 py-1 rounded-[4px] uppercase">
+              ALTERNATIVE
+            </div>
+            
+            <div className="bg-[#0D9488]/5 border-l-[3px] border-[#0D9488]/50 p-[10px_14px] mb-8">
+              <p className="text-[#0D9488]/80 text-[11px]">
+                ⚡ Use this UPI ID if the primary payment option has reached its daily transaction limit.
+              </p>
+            </div>
+
+            <div className="text-center mb-8">
+              <span className="text-[#6e7681] text-[9px] tracking-[3px] uppercase">SCAN QR CODE TO PAY</span>
+            </div>
+
+            <div className="flex justify-center mb-10">
+              <div className="bg-white p-2 rounded-lg">
+                <img 
+                  src="https://quickchart.io/qr?text=upi://pay?pa=6301523538-id6e@axl%26pn=Nithish%26am=400%26cu=INR%26tn=NNRG_TechFest_PaperPresentation&size=300" 
+                  alt="Alternative Payment QR Code"
+                  className="w-[260px] h-[260px]"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
+              <div className="space-y-1">
+                <div className="text-[#6e7681] text-[10px] uppercase">UPI ID</div>
+                <div className="text-[#0D9488] font-bold text-sm">6301523538-id6e@axl</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-[#6e7681] text-[10px] uppercase">PHONE</div>
+                <div className="text-[#0D9488] font-bold text-sm">6301523538</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-[#6e7681] text-[10px] uppercase">NAME</div>
+                <div className="text-white font-bold text-sm">NITHISH</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-[#6e7681] text-[10px] uppercase">AMOUNT</div>
+                <div className="text-[#22C55E] font-bold text-sm">₹400</div>
+              </div>
+            </div>
+
+            <div className="bg-[#0D9488]/3 border-l-2 border-[#0D9488]/50 p-3">
+              <p className="text-[#0D9488]/70 text-[13px]">📋 Note: NNRG TechFest - Paper Presentation</p>
             </div>
           </div>
         </div>
