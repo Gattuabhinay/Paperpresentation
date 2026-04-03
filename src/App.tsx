@@ -179,6 +179,7 @@ const PrizeCard = ({ icon, place, title, rewards, bgColor, borderColor, accentCo
 
 export default function App() {
   const [registrationCount, setRegistrationCount] = useState(0);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [formData, setFormData] = useState({
     college: "NNRG - Nalla Narasimha Reddy Education Society's Group of Institutions",
     otherCollege: "",
@@ -212,6 +213,31 @@ export default function App() {
     fetchCount();
     const interval = setInterval(fetchCount, 30000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const eventDate = new Date('2027-02-26T10:00:00').getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const distance = eventDate - now;
+
+      if (distance < 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+
+      setTimeLeft({
+        days: Math.floor(distance / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+        minutes: Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)),
+        seconds: Math.floor((distance % (1000 * 60)) / 1000)
+      });
+    };
+
+    updateCountdown();
+    const timer = setInterval(updateCountdown, 1000);
+    return () => clearInterval(timer);
   }, []);
 
   const colleges = [
@@ -411,6 +437,27 @@ Thank you! 🙏
               Register Now
               <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
             </a>
+
+            {/* Countdown Timer */}
+            <div className="mb-16 flex items-center justify-center gap-4 md:gap-8">
+              {[
+                { label: 'DAYS', value: timeLeft.days },
+                { label: 'HOURS', value: timeLeft.hours },
+                { label: 'MINS', value: timeLeft.minutes },
+                { label: 'SECS', value: timeLeft.seconds }
+              ].map((item, idx) => (
+                <div key={idx} className="flex flex-col items-center">
+                  <div className="bg-white/5 border border-white/10 backdrop-blur-sm rounded-xl p-3 md:p-5 min-w-[70px] md:min-w-[100px] mb-2 shadow-xl">
+                    <span className="text-white font-mono text-2xl md:text-4xl font-black tabular-nums">
+                      {String(item.value).padStart(2, '0')}
+                    </span>
+                  </div>
+                  <span className="text-[#0D9488] text-[9px] md:text-[10px] font-bold tracking-[3px] uppercase opacity-80">
+                    {item.label}
+                  </span>
+                </div>
+              ))}
+            </div>
 
             <div className="mt-20 w-full max-w-3xl mx-auto">
               <div className="flex items-center justify-center gap-6 mb-6 opacity-30">
