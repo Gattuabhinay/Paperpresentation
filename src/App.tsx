@@ -30,8 +30,8 @@ import { motion, AnimatePresence } from 'motion/react';
 // --- Supabase Setup ---
 
 const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL || 'https://dklzqwcgboolzisqngei.supabase.co',
-  import.meta.env.VITE_SUPABASE_ANON_KEY || 'YOUR_ANON_KEY_HERE'
+  'https://dklzqwcgboolzisqngei.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrbHpxd2NnYm9vbHppc3FuZ2VpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjgxNDcxNzEsImV4cCI6MjA4MzcyMzE3MX0.TEqgRDBCHGJJJsOoLdUfXlKXmnR6m_J5woumAjOtw9E'
 );
 
 // --- Components ---
@@ -281,6 +281,7 @@ export default function App() {
         .from('paperpresentations')
         .insert([{
           college: collegeName,
+          team_name: formData.teamName,
           name: formData.leaderName,
           roll_number: formData.leaderRoll,
           department: formData.leaderDept,
@@ -288,7 +289,6 @@ export default function App() {
           mobile_no: formData.leaderMobile,
           e_mail: formData.leaderEmail || null,
           transaction_id: formData.transactionId,
-          team_name: formData.teamName,
           member2_name: formData.member2Name || null,
           member2_roll: formData.member2Roll || null
         }]);
@@ -384,15 +384,6 @@ Thank you! 🙏
               visitor@nnrg:~$ ./launch paper_presentation --year=2027
             </div>
 
-            {/* Live Registration Counter */}
-            <div className="inline-flex items-center gap-3 bg-[#10B981]/12 border border-[#10B981]/40 rounded-full px-6 py-2.5 backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.2)] mb-5">
-              <div className="w-2.5 h-2.5 bg-[#10B981] rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-pulse" />
-              <div className="text-white text-[13px] font-bold tracking-[3px] uppercase">
-                LIVE  •  <span className="text-[#10B981] text-[18px] font-black">{registrationCount}</span> REGISTERED
-              </div>
-              <span className="text-[#10B981]/70 text-base">👥</span>
-            </div>
-
             <div className="inline-block bg-[#0D9488] text-white text-[11px] font-bold px-4 py-1.5 rounded-full tracking-widest mb-8">
               RESEARCH
             </div>
@@ -427,6 +418,15 @@ Thank you! 🙏
                 <CreditCard className="w-4 h-4 text-[#0D9488]" />
                 <span>₹400/team</span>
               </div>
+            </div>
+
+            {/* Live Registration Counter */}
+            <div className="inline-flex items-center gap-3 bg-[#10B981]/12 border border-[#10B981]/40 rounded-full px-6 py-2.5 backdrop-blur-md shadow-[0_0_30px_rgba(16,185,129,0.2)] mb-6">
+              <div className="w-2.5 h-2.5 bg-[#10B981] rounded-full shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-[pulse_1.5s_infinite]" />
+              <div className="text-white text-[13px] font-bold tracking-[3px] uppercase">
+                LIVE  •  <span className="text-[#10B981] text-[18px] font-black">{registrationCount}</span> REGISTERED
+              </div>
+              <span className="text-[#10B981]/70 text-base">👥</span>
             </div>
 
             <a 
@@ -816,6 +816,55 @@ Thank you! 🙏
           <p className="text-center text-[#6e7681] text-[13px] mt-10">
             🎓 Every participant will receive a participation certificate
           </p>
+        </div>
+      </section>
+
+      {/* --- Previous Year Reference Section --- */}
+      <section className="py-24 px-6 bg-[#F5F5F5]">
+        <div className="container mx-auto">
+          <SectionHeading>PREVIOUS YEAR REFERENCE</SectionHeading>
+          <div className="max-w-[800px] mx-auto bg-[#0D1B2A] rounded-2xl p-8 border border-white/5 shadow-xl">
+            {/* Info Banner */}
+            <div className="bg-[#0D9488]/8 border-l-[3px] border-[#0D9488] p-3 px-4 mb-10">
+              <p className="text-[#0D9488] text-xs">
+                📚 Check out last year's winning presentation to get inspired for Paper Presentation 2027!
+              </p>
+            </div>
+
+            {/* PPT Card */}
+            <div className="text-center mb-10">
+              <div className="text-5xl mb-6">📊</div>
+              <h3 className="text-white font-black text-2xl mb-2">Paper Presentation — Previous Year Winning PPT</h3>
+              <p className="text-[#9CA3AF] text-sm uppercase tracking-[2px]">Reference Presentation | Paper Presentation 2026</p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+              <a 
+                href="https://docs.google.com/presentation/d/19jk_-icbnHXPx72Ii0VY6XlrjWI8qkCN/edit?slide=id.p1#slide=id.p1"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 max-w-[250px] bg-[#0D9488] hover:bg-[#0F766E] text-white font-bold py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <span>👁</span> View PPT
+              </a>
+              <a 
+                href="https://docs.google.com/presentation/d/19jk_-icbnHXPx72Ii0VY6XlrjWI8qkCN/export/pptx"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 max-w-[250px] border border-[#0D9488]/40 hover:border-[#0D9488] text-white font-bold py-4 rounded-xl transition-all duration-300 flex items-center justify-center gap-2"
+              >
+                <span>⬇</span> Download PPT
+              </a>
+            </div>
+
+            {/* Tip Note */}
+            <div className="text-center">
+              <p className="text-[#6e7681] text-[13px]">
+                💡 Tip: This is for reference only. Your presentation must be completely original and on a new topic.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
