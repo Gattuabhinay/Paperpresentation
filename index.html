@@ -17,10 +17,30 @@
     <meta name="twitter:description" content="Research Paper Presentation | Cash Prizes | NNRG Tech Fest 2027"/>
     <meta name="twitter:image" content="https://res.cloudinary.com/djz4ulfhh/image/upload/v1774025204/nnrg_web_logo_image_vrvgoq.png"/>
     <link rel="icon" type="image/png" href="https://res.cloudinary.com/djz4ulfhh/image/upload/v1774025204/nnrg_web_logo_image_vrvgoq.png"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>
+  emailjs.init("CtZBtL2OiswTAomUD");
+</script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+  document.getElementById("registrationForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    document.getElementById("statusMsg").innerText = "Sending...";
+
+    emailjs.sendForm("service_3kbt9ft", "template_kqhteg9", this)
+      .then(function() {
+        document.getElementById("statusMsg").innerText = "Registration received! We'll get back to you soon.";
+        document.getElementById("registrationForm").reset();
+      }, function(error) {
+        document.getElementById("statusMsg").innerText = "Something went wrong. Please try again.";
+        console.log("EmailJS error:", error);
+      });
+  });
+</script>
   </body>
 </html>
 
